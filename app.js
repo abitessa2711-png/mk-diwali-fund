@@ -1448,9 +1448,9 @@ function renderDashboard() {
                             ? (lang === 'ta' ? 'ரொக்கம்' : 'Cash') 
                             : (lang === 'ta' ? 'ஆன்லைன்' : 'Online Payment');
                         tr.innerHTML = `
-                            <td>${new Date(p.payment_date).toLocaleDateString(lang === 'ta' ? 'ta-IN' : 'en-IN')}</td>
-                            <td class="green-text">${formatCurrency(p.amount_paid)}</td>
-                            <td><span class="status-badge status-online" style="background:rgba(212,175,55,0.1);color:var(--text-color);border:1px solid var(--border-color);">${modeLabel}</span></td>
+                            <td data-label="${lang === 'ta' ? 'தேதி' : 'Date'}">${new Date(p.payment_date).toLocaleDateString(lang === 'ta' ? 'ta-IN' : 'en-IN')}</td>
+                            <td data-label="${lang === 'ta' ? 'செலுத்திய தொகை' : 'Amount Paid'}" class="green-text">${formatCurrency(p.amount_paid)}</td>
+                            <td data-label="${lang === 'ta' ? 'கட்டண முறை' : 'Payment Mode'}"><span class="status-badge status-online" style="background:rgba(212,175,55,0.1);color:var(--text-color);border:1px solid var(--border-color);">${modeLabel}</span></td>
                         `;
                         tbody.appendChild(tr);
                     });
@@ -1571,17 +1571,20 @@ function renderMembers(searchTerm = '') {
 
     filtered.forEach(m => {
         const tr = document.createElement('tr');
+        const lang = appState.language || 'ta';
         tr.innerHTML = `
-            <td><strong>${m.member_id}</strong></td>
-            <td>${m.name}</td>
-            <td>${m.contact_no}</td>
-            <td>${m.address || '-'}</td>
-            <td>${formatCurrency(m.chit_amount)}</td>
-            <td class="green-text">${formatCurrency(m.total_paid)}</td>
-            <td class="red-text">${formatCurrency(m.pending_amount)}</td>
-            <td class="gold-text">${formatCurrency(m.interest_amount || 0)}</td>
-            <td class="no-print row-actions">
-                <button class="btn-table-delete" data-id="${m.member_id}" title="${appState.language === 'ta' ? 'நீக்கு' : 'Delete'}"><i class="fa-solid fa-trash"></i></button>
+            <td data-label="${lang === 'ta' ? 'குறியீடு (ID)' : 'ID'}"><strong>${m.member_id}</strong></td>
+            <td data-label="${lang === 'ta' ? 'பெயர்' : 'Name'}">${m.name}</td>
+            <td data-label="${lang === 'ta' ? 'கைபேசி' : 'Contact'}">${m.contact_no}</td>
+            <td data-label="${lang === 'ta' ? 'முகவரி' : 'Address'}">${m.address || '-'}</td>
+            <td data-label="${lang === 'ta' ? 'சிட் தொகை' : 'Chit Value'}">${formatCurrency(m.chit_amount)}</td>
+            <td data-label="${lang === 'ta' ? 'செலுத்தியது' : 'Paid'}" class="green-text">${formatCurrency(m.total_paid)}</td>
+            <td data-label="${lang === 'ta' ? 'நிலுவை' : 'Pending'}" class="red-text">${formatCurrency(m.pending_amount)}</td>
+            <td data-label="${lang === 'ta' ? 'வட்டி/லாபம்' : 'Interest'}" class="gold-text">${formatCurrency(m.interest_amount || 0)}</td>
+            <td data-label="${lang === 'ta' ? 'செயல்பாடுகள்' : 'Actions'}" class="no-print" style="text-align: center;">
+                <div class="row-actions">
+                    <button class="btn-table-delete" data-id="${m.member_id}" title="${appState.language === 'ta' ? 'நீக்கு' : 'Delete'}"><i class="fa-solid fa-trash"></i></button>
+                </div>
             </td>
         `;
 
@@ -1673,15 +1676,18 @@ function renderPayments(modeFilter = 'All') {
             ? (appState.language === 'ta' ? 'ரொக்கம்' : 'Cash') 
             : (appState.language === 'ta' ? 'ஆன்லைன்' : 'Online Payment');
         
+        const lang = appState.language || 'ta';
         tr.innerHTML = `
-            <td><strong>${memberName}</strong></td>
-            <td>${contact}</td>
-            <td>${chit}</td>
-            <td class="green-text">${formatCurrency(p.amount_paid)}</td>
-            <td><span class="status-badge status-online" style="background:rgba(212,175,55,0.1);color:var(--text-color);border:1px solid var(--border-color);">${modeLabel}</span></td>
-            <td>${new Date(p.payment_date).toLocaleDateString(appState.language === 'ta' ? 'ta-IN' : 'en-IN')}</td>
-            <td class="no-print row-actions">
-                <button class="btn-table-delete" data-id="${p.id}" data-member="${p.member_id}" title="${appState.language === 'ta' ? 'நீக்கு' : 'Delete'}"><i class="fa-solid fa-trash"></i></button>
+            <td data-label="${lang === 'ta' ? 'பெயர்' : 'Name'}"><strong>${memberName}</strong></td>
+            <td data-label="${lang === 'ta' ? 'கைபேசி' : 'Contact'}">${contact}</td>
+            <td data-label="${lang === 'ta' ? 'சிட் தொகை' : 'Chit Value'}">${chit}</td>
+            <td data-label="${lang === 'ta' ? 'செலுத்திய தொகை' : 'Amount Paid'}" class="green-text">${formatCurrency(p.amount_paid)}</td>
+            <td data-label="${lang === 'ta' ? 'கட்டண முறை' : 'Payment Mode'}"><span class="status-badge status-online" style="background:rgba(212,175,55,0.1);color:var(--text-color);border:1px solid var(--border-color);">${modeLabel}</span></td>
+            <td data-label="${lang === 'ta' ? 'தேதி' : 'Date'}">${new Date(p.payment_date).toLocaleDateString(lang === 'ta' ? 'ta-IN' : 'en-IN')}</td>
+            <td data-label="${lang === 'ta' ? 'செயல்பாடுகள்' : 'Actions'}" class="no-print" style="text-align: center;">
+                <div class="row-actions">
+                    <button class="btn-table-delete" data-id="${p.id}" data-member="${p.member_id}" title="${appState.language === 'ta' ? 'நீக்கு' : 'Delete'}"><i class="fa-solid fa-trash"></i></button>
+                </div>
             </td>
         `;
 

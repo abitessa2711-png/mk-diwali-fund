@@ -2025,19 +2025,167 @@ body {
         align-items: stretch;
     }
     
+    /* Premium Mobile Stats Grid Configuration */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 12px !important;
+    }
+    
     .stats-card {
-        padding: 14px;
-        gap: 12px;
+        padding: 14px 10px !important;
+        gap: 10px !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
     }
     
-    .stats-icon {
-        width: 42px;
-        height: 42px;
-        font-size: 18px;
+    .stats-card .stats-icon {
+        width: 38px !important;
+        height: 38px !important;
+        font-size: 16px !important;
+        margin-bottom: 4px;
     }
     
-    .stats-value {
-        font-size: 1.2rem;
+    .stats-card .stats-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .stats-card .stats-label {
+        font-size: 0.75rem !important;
+        margin-bottom: 2px;
+    }
+    
+    .stats-card .stats-value {
+        font-size: 1.05rem !important;
+        text-align: center;
+    }
+
+    /* Force the 5th stats card to span full width */
+    .stats-card:nth-child(5) {
+        grid-column: span 2;
+        flex-direction: row !important;
+        justify-content: center;
+        gap: 14px !important;
+    }
+    .stats-card:nth-child(5) .stats-icon {
+        margin-bottom: 0;
+    }
+
+    /* Home Quick Actions Mobile Grid */
+    .quick-actions-card .actions-list {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+    
+    .quick-actions-card .actions-list .action-btn {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        height: 85px !important;
+        padding: 10px 8px !important;
+        font-size: 0.8rem !important;
+        gap: 6px !important;
+        border-radius: var(--radius-md) !important;
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    .quick-actions-card .actions-list .action-btn i {
+        font-size: 1.35rem !important;
+    }
+
+    /* If there is a 3rd button (like in member mode), span it full width */
+    .quick-actions-card .actions-list .action-btn:nth-child(3) {
+        grid-column: span 2;
+        flex-direction: row !important;
+        height: 48px !important;
+        gap: 10px !important;
+    }
+    .quick-actions-card .actions-list .action-btn:nth-child(3) i {
+        font-size: 1.1rem !important;
+    }
+
+    /* Magical Mobile Responsive Tables (Transforms tables into cards) */
+    .premium-table, 
+    .premium-table thead, 
+    .premium-table tbody, 
+    .premium-table th, 
+    .premium-table td, 
+    .premium-table tr {
+        display: block;
+    }
+    
+    .premium-table th {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+    
+    .premium-table tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        background: var(--ivory-light);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+        overflow: hidden;
+    }
+    
+    .premium-table td {
+        border: none;
+        border-bottom: 1px solid rgba(0,0,0,0.04);
+        position: relative;
+        padding-left: 45% !important;
+        text-align: right !important;
+        font-size: 0.85rem !important;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    
+    .premium-table td:last-child {
+        border-bottom: 0;
+    }
+    
+    .premium-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        top: 50%;
+        left: 12px;
+        transform: translateY(-50%);
+        width: 40%;
+        text-align: left;
+        font-weight: 700;
+        color: var(--maroon);
+        font-size: 0.8rem;
+    }
+    
+    .premium-table td.row-actions {
+        justify-content: flex-end;
+    }
+
+    /* QR Payment display adjustments */
+    .qr-card-card {
+        padding: 16px !important;
+    }
+    .qr-display-box {
+        width: 180px !important;
+        height: 180px !important;
+        padding: 8px !important;
+    }
+    .qr-image-display {
+        width: 164px !important;
+        height: 164px !important;
+    }
+    .upi-id-badge {
+        font-size: 0.78rem !important;
+        padding: 4px 8px !important;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
     .welcome-banner {
