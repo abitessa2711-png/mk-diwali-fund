@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK Diwali Fund - மேலாண்மை தளம்</title>
+    <!-- Google Fonts for premium Tamil typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta+Malar:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script type="module" crossorigin src="/assets/index-DDdHaDKJ.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-93Dyw9So.css">
+</head>
+<body>
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Login Container -->
+    <div id="login-container" class="login-layout">
+        <!-- Floating Blended Coins in Background -->
+        <div class="login-bg-coins">
+            <div class="coin coin-1"><i class="fa-solid fa-coins"></i></div>
+            <div class="coin coin-2"><i class="fa-solid fa-coins"></i></div>
+            <div class="coin coin-3"><i class="fa-solid fa-coins"></i></div>
+            <div class="coin coin-4"><i class="fa-solid fa-coins"></i></div>
+            <div class="coin coin-5"><i class="fa-solid fa-coins"></i></div>
+        </div>
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo-circle">
+                    <img src="/assets/mk_logo-EUF3NBwn.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                </div>
+                <h2 style="color: var(--brown-dark); font-weight: 700; font-size: 1.8rem;">MK DIWALI FUND</h2>
+                <p class="login-tagline" data-i18n="login_tagline">"ஒவ்வோர் சேமிப்பும் ஒரு தீபம் 🪔"</p>
+            </div>
+            <form id="login-form" class="theme-form">
+                <div class="form-group" style="text-align: left;">
+                    <label for="login-email">மின்னஞ்சல் (Email) <span class="required">*</span></label>
+                    <input type="email" id="login-email" class="input-field" placeholder="admin@mkdiwalifund.com" required>
+                </div>
+                <div class="form-group" style="text-align: left;">
+                    <label for="login-password">கடவுச்சொல் (Password) <span class="required">*</span></label>
+                    <input type="password" id="login-password" class="input-field" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block" id="btn-login-submit" style="margin-top: 15px;"><i class="fa-solid fa-right-to-bracket"></i> உள்நுழைக (Login)</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="app-container" class="app-layout hidden">
+        <!-- Mobile Top Header Bar -->
+        <header class="mobile-header no-print">
+            <button id="btn-mobile-menu" class="mobile-menu-btn">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <div class="mobile-logo-title" style="display: flex; align-items: center; gap: 8px;">
+                <span class="mobile-logo" style="width: 30px; height: 30px; display: inline-flex; align-items: center; justify-content: center;"><img src="/assets/mk_logo-EUF3NBwn.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></span>
+                <span id="mobile-company-name-text" class="mobile-title">MK Diwali Fund</span>
+            </div>
+            <div style="display: flex; gap: 6px; align-items: center;">
+                <button id="btn-mobile-theme-toggle" class="btn btn-secondary" style="padding: 0 10px; height: 32px;" title="Theme Toggle"><i class="fa-solid fa-moon"></i></button>
+                <button id="btn-mobile-lang-toggle" class="btn btn-secondary" style="padding: 0 10px; height: 32px;"><i class="fa-solid fa-language"></i> EN</button>
+            </div>
+        </header>
+
+        <!-- Sidebar Backdrop Overlay -->
+        <div id="sidebar-overlay" class="sidebar-overlay hidden no-print"></div>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo-container">
+                    <!-- Default gold-themed logo or uploaded logo -->
+                    <div id="sidebar-logo" class="company-logo-circle">
+                        <img src="/assets/mk_logo-EUF3NBwn.png" alt="Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                    </div>
+                    <div style="flex: 1; min-width: 0;">
+                        <h1 id="sidebar-company-name" class="company-name-title">MK Diwali Fund</h1>
+                        <span class="company-tagline" data-i18n="company_tagline">ஒவ்வோர் சேமிப்பும் ஒரு தீபம் 🪔</span>
+                    </div>
+                    <button id="btn-sidebar-close" class="sidebar-close-btn no-print">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tagline Box -->
+            <div class="tagline-box">
+                <p class="tagline-main" data-i18n="tagline_main">"ஒவ்வோர் சேமிப்பும்"</p>
+                <p class="tagline-sub" data-i18n="tagline_sub">"ஒரு தீபம் 🪔"</p>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active" data-view="dashboard" id="menu-dashboard">
+                        <a href="#"><i class="fa-solid fa-house"></i> <span data-i18n="nav_dashboard">🏠 முகப்பு</span></a>
+                    </li>
+                    <li class="nav-item" data-view="member-reg" id="menu-member-reg">
+                        <a href="#"><i class="fa-solid fa-user-plus"></i> <span data-i18n="nav_member_reg">👥 உறுப்பினர் பதிவு</span></a>
+                    </li>
+                    <li class="nav-item" data-view="member-list" id="menu-member-list">
+                        <a href="#"><i class="fa-solid fa-address-book"></i> <span data-i18n="nav_member_list">📋 உறுப்பினர் பட்டியல்</span></a>
+                    </li>
+                    <li class="nav-item" data-view="payment-mgmt" id="menu-payment-mgmt">
+                        <a href="#"><i class="fa-solid fa-money-bill-transfer"></i> <span data-i18n="nav_payment_mgmt">💰 கட்டண மேலாண்மை</span></a>
+                    </li>
+                    <li class="nav-item" data-view="gift-items" id="menu-gift-items">
+                        <a href="#"><i class="fa-solid fa-gift"></i> <span data-i18n="nav_gift_items">🎁 பரிசுப் பொருட்கள்</span></a>
+                    </li>
+                    <li class="nav-item" data-view="qr-payment" id="menu-qr-payment">
+                        <a href="#"><i class="fa-solid fa-credit-card"></i> <span data-i18n="nav_qr_payment">📱 ஆன்லைன் கட்டணம்</span></a>
+                    </li>
+                    <li class="nav-item" data-view="reports" id="menu-reports">
+                        <a href="#"><i class="fa-solid fa-chart-line"></i> <span data-i18n="nav_reports">📊 அறிக்கைகள்</span></a>
+                    </li>
+                    <li class="nav-item" data-view="contact" id="menu-contact">
+                        <a href="#"><i class="fa-solid fa-address-card"></i> <span data-i18n="nav_contact">📞 தொடர்புக்கு</span></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Sidebar Footer: Connection status & Phase info -->
+            <div class="sidebar-footer">
+                <div class="status-badge-container">
+                    <span id="connection-status" class="status-badge status-offline">
+                        <span class="status-dot"></span>
+                        <span class="status-text" data-i18n="status_offline">🔴 Not Connected</span>
+                    </span>
+                </div>
+                <button class="btn btn-primary btn-block no-print hidden" id="btn-sidebar-connect" style="padding: 6px 12px; font-size: 0.85rem; margin-top: 5px; background: var(--gold-gradient); border: 1px solid var(--gold); color: var(--brown-dark);"><i class="fa-solid fa-database"></i> Connect Supabase</button>
+                <button class="btn btn-secondary btn-block no-print" id="btn-sidebar-logout" style="padding: 6px 12px; font-size: 0.85rem; background: transparent; color: var(--gold-light); border-color: rgba(250,249,246,0.3); margin-top: 5px;"><i class="fa-solid fa-right-from-bracket"></i> <span data-i18n="logout">வெளியேறு (Logout)</span></button>
+                <div class="phase-badge" data-i18n="phase_badge">Phase 1 (Admin Mode)</div>
+            </div>
+        </aside>
+
+        <!-- Main Dashboard View Container -->
+        <main class="main-content">
+            <!-- Top Header (Dynamic Page Title) -->
+            <header class="content-header">
+                <div class="header-left">
+                    <h2 id="current-page-title">முகப்பு (Dashboard)</h2>
+                </div>
+                <div class="header-right" style="display: flex; align-items: center; gap: 12px;">
+                    <div class="branding-mini">
+                        <span id="header-company-mobile" class="gold-text"><i class="fa-solid fa-phone"></i> +91 98765 43210</span>
+                    </div>
+                    <button class="btn btn-secondary no-print" id="btn-theme-toggle" style="padding: 6px 12px; font-size: 0.85rem; font-weight: 700; border-color: var(--gold); background: var(--maroon); color: var(--gold-light); cursor: pointer; border-radius: var(--radius-md);" title="Theme Toggle"><i class="fa-solid fa-moon"></i></button>
+                    <button class="btn btn-secondary no-print" id="btn-lang-toggle" style="padding: 6px 12px; font-size: 0.85rem; font-weight: 700; border-color: var(--gold); background: var(--maroon); color: var(--gold-light); cursor: pointer; border-radius: var(--radius-md);"><i class="fa-solid fa-language"></i> EN</button>
+                </div>
+            </header>
+
+            <!-- ================= PAGE 1: DASHBOARD ================= -->
+            <section id="view-dashboard" class="dashboard-view active">
+                <div class="welcome-banner">
+                    <div class="welcome-text">
+                        <h3 data-i18n="dash_welcome">வரவேற்கிறோம், நிர்வாகி!</h3>
+                        <p data-i18n="dash_welcome_sub">MK தீபாவளி ஃபண்ட் மேலாண்மை தளம் உங்களை அன்புடன் வரவேற்கிறது. இன்றைய நிலவரங்கள் கீழே தொகுக்கப்பட்டுள்ளன.</p>
+                    </div>
+                    <div class="date-display" id="dashboard-date">14 ஜூன் 2026</div>
+                </div>
+
+                <!-- Stats Cards Grid -->
+                <div class="stats-grid">
+                    <div class="stats-card">
+                        <div class="stats-icon"><i class="fa-solid fa-users"></i></div>
+                        <div class="stats-info">
+                            <span class="stats-label" data-i18n="stat_members">மொத்த உறுப்பினர்கள்</span>
+                            <h3 id="stat-total-members" class="stats-value">0</h3>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon collection"><i class="fa-solid fa-sack-dollar"></i></div>
+                        <div class="stats-info">
+                            <span class="stats-label" data-i18n="stat_collection">மொத்த சேகரிப்பு</span>
+                            <h3 id="stat-total-collection" class="stats-value">₹0</h3>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon pending"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                        <div class="stats-info">
+                            <span class="stats-label" data-i18n="stat_pending">நிலுவைத் தொகை</span>
+                            <h3 id="stat-pending-collection" class="stats-value">₹0</h3>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon cash"><i class="fa-solid fa-money-bill-wave"></i></div>
+                        <div class="stats-info">
+                            <span class="stats-label" data-i18n="stat_cash">ரொக்கக் கட்டணம் (Cash)</span>
+                            <h3 id="stat-cash-collection" class="stats-value">₹0</h3>
+                        </div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-icon qr"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                        <div class="stats-info">
+                            <span class="stats-label" data-i18n="stat_qr">QR கட்டணம் (UPI)</span>
+                            <h3 id="stat-qr-collection" class="stats-value">₹0</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Charts & Info Panel -->
+                <div class="dashboard-panel-grid">
+                    <!-- Collection Chart Card -->
+                    <div class="panel-card chart-card">
+                        <div class="panel-header">
+                            <h4><i class="fa-solid fa-chart-pie gold-text"></i> <span data-i18n="chart_title">கட்டண புள்ளிவிவரங்கள்</span></h4>
+                        </div>
+                        <div class="panel-body chart-container">
+                            <div class="custom-progress-charts">
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-labels">
+                                        <span data-i18n="chart_col">சேகரிக்கப்பட்ட தொகை (Collection)</span>
+                                        <span id="chart-collection-percent">0%</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div id="chart-collection-fill" class="progress-fill collection-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-labels">
+                                        <span data-i18n="chart_pen">நிலுவைத் தொகை (Pending)</span>
+                                        <span id="chart-pending-percent">0%</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div id="chart-pending-fill" class="progress-fill pending-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-labels">
+                                        <span data-i18n="chart_cash">ரொக்க வழி கட்டணங்கள் (Cash)</span>
+                                        <span id="chart-cash-percent">0%</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div id="chart-cash-fill" class="progress-fill cash-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="progress-bar-wrapper">
+                                    <div class="progress-labels">
+                                        <span data-i18n="chart_qr">QR வழி கட்டணங்கள் (QR Payment)</span>
+                                        <span id="chart-qr-percent">0%</span>
+                                    </div>
+                                    <div class="progress-track">
+                                        <div id="chart-qr-fill" class="progress-fill qr-fill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Action Card -->
+                    <div class="panel-card quick-actions-card">
+                        <div class="panel-header">
+                            <h4><i class="fa-solid fa-bolt gold-text"></i> <span data-i18n="quick_title">விரைவான செயல்பாடு</span></h4>
+                        </div>
+                        <div class="panel-body actions-list">
+                            <button class="action-btn" id="btn-quick-member"><i class="fa-solid fa-user-plus"></i> <span data-i18n="quick_member">புதிய உறுப்பினர் பதிவு</span></button>
+                            <button class="action-btn" id="btn-quick-payment"><i class="fa-solid fa-money-bill-transfer"></i> <span data-i18n="quick_payment">கட்டணம் பதிவு செய்க</span></button>
+                            <button class="action-btn" id="btn-quick-qr"><i class="fa-solid fa-qrcode"></i> <span data-i18n="quick_qr">QR அமைப்புகள் காண்க</span></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 2: MEMBER REGISTRATION ================= -->
+            <section id="view-member-reg" class="dashboard-view">
+                <div class="form-container-card">
+                    <div class="form-header">
+                        <h3><i class="fa-solid fa-user-plus gold-text"></i> <span data-i18n="reg_title">புதிய உறுப்பினர் பதிவு படிவம்</span></h3>
+                        <p data-i18n="reg_sub">புதிய சிட் உறுப்பினரை சேர்க்க கீழே உள்ள விவரங்களை பூர்த்தி செய்யவும்.</p>
+                    </div>
+                    <form id="member-registration-form" class="theme-form">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="reg-member-id"><span data-i18n="reg_member_id">உறுப்பினர் குறியீடு (Member ID)</span> <span class="required">*</span></label>
+                                <input type="text" id="reg-member-id" class="input-field disabled-input" placeholder="MK-1001 (தானியங்கி)" data-i18n-placeholder="reg_id_placeholder" readonly>
+                                <span class="help-text" data-i18n="reg_id_help">சிஸ்டம் மூலம் தானியங்கி குறியீடு உருவாக்கப்படும்.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-member-name"><span data-i18n="reg_name">பெயர் (Name)</span> <span class="required">*</span></label>
+                                <input type="text" id="reg-member-name" class="input-field" placeholder="பெயரை உள்ளிடவும்" data-i18n-placeholder="reg_name_placeholder" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-member-contact"><span data-i18n="reg_contact">கைபேசி எண் (Contact No)</span> <span class="required">*</span></label>
+                                <input type="tel" id="reg-member-contact" class="input-field" placeholder="கைபேசி எண்ணை உள்ளிடவும்" data-i18n-placeholder="reg_contact_placeholder" pattern="[0-9]{10}" title="10 இலக்க எண்களை மட்டும் உள்ளிடவும்" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-member-chit-amount"><span data-i18n="reg_chit_amount">சிட் தொகை (Chit Amount)</span> <span class="required">*</span></label>
+                                <input type="number" id="reg-member-chit-amount" class="input-field" placeholder="உதாரணமாக: 50000" data-i18n-placeholder="reg_chit_amount_placeholder" min="1000" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="reg-member-interest"><span data-i18n="reg_interest">வட்டி / லாபம் (Interest/Dividend)</span></label>
+                                <input type="number" id="reg-member-interest" class="input-field" placeholder="0" min="0" value="0">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="reg-member-address" data-i18n="reg_address">முகவரி (Address)</label>
+                                <textarea id="reg-member-address" class="input-field text-area-field" placeholder="முகவரியை உள்ளிடவும்" data-i18n-placeholder="reg_address_placeholder" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-secondary" id="btn-reset-member-form" data-i18n="clear_btn">அழித்து எழுதுக</button>
+                            <button type="submit" class="btn btn-primary" id="btn-submit-member"><i class="fa-solid fa-floppy-disk"></i> <span data-i18n="save_btn">பதிவு செய்க</span></button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 3: MEMBER LIST ================= -->
+            <section id="view-member-list" class="dashboard-view">
+                <div class="table-container-card">
+                    <!-- Table Toolbar -->
+                    <div class="table-toolbar">
+                        <div class="search-box-wrapper">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <input type="text" id="search-members" class="toolbar-search" placeholder="பெயர் அல்லது கைபேசி எண் மூலம் தேடுக..." data-i18n-placeholder="search_placeholder">
+                        </div>
+                        <div class="toolbar-actions" style="display: flex; gap: 8px;">
+                            <button class="btn-icon btn-toolbar" id="btn-print-members" title="பட்டியலை அச்சிடு"><i class="fa-solid fa-print"></i> <span data-i18n="print_btn">அச்சிடு</span></button>
+                            <button class="btn btn-primary" id="btn-download-pdf-members" style="padding: 0 14px; height: 38px; font-size: 0.85rem;"><i class="fa-solid fa-file-pdf"></i> <span data-i18n="report_pdf_btn">PDF ஆகப் பதிவிறக்கு</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Members Table -->
+                    <div class="responsive-table-wrapper">
+                        <table id="members-table" class="premium-table">
+                            <thead>
+                                <tr>
+                                    <th data-i18n="th_id">குறியீடு (ID)</th>
+                                    <th data-i18n="th_name">பெயர்</th>
+                                    <th data-i18n="th_contact">கைபேசி எண்</th>
+                                    <th data-i18n="th_address">முகவரி</th>
+                                    <th data-i18n="th_chit_amount">சிட் தொகை (₹)</th>
+                                    <th data-i18n="th_paid_amount">செலுத்திய தொகை (₹)</th>
+                                    <th data-i18n="th_pending_amount">நிலுவைத் தொகை (₹)</th>
+                                    <th data-i18n="th_interest">வட்டி/லாபம் (₹)</th>
+                                    <th class="no-print" data-i18n="th_actions">செயல்பாடுகள்</th>
+                                </tr>
+                            </thead>
+                            <tbody id="members-table-body">
+                                <tr>
+                                    <td colspan="9" class="text-center" data-i18n="no_members">உறுப்பினர்கள் யாரும் இல்லை...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 4: PAYMENT MANAGEMENT ================= -->
+            <section id="view-payment-mgmt" class="dashboard-view">
+                <!-- Record Payment Block and Table in grid -->
+                <div class="payment-layout-grid">
+                    <!-- Record Payment Card -->
+                    <div class="form-container-card payment-form-card">
+                        <div class="form-header">
+                            <h3><i class="fa-solid fa-cash-register gold-text"></i> <span data-i18n="pay_title">கட்டணம் செலுத்துதல்</span></h3>
+                            <p data-i18n="pay_sub">உறுப்பினர் வாரியாக சிட் தவணை கட்டணத்தை இங்கே பதிவு செய்யவும்.</p>
+                        </div>
+                        <form id="payment-entry-form" class="theme-form">
+                            <div class="form-group">
+                                <label for="pay-member-select"><span data-i18n="pay_select_member">உறுப்பினர் தேர்வு செய்க (Select Member)</span> <span class="required">*</span></label>
+                                <select id="pay-member-select" class="input-field select-field" required>
+                                    <option value="" disabled selected data-i18n="pay_select_default">உறுப்பினரைத் தேர்ந்தெடுக்கவும்</option>
+                                </select>
+                            </div>
+                            <!-- Selected Member Summary Info Box -->
+                            <div id="pay-member-info-box" class="member-info-box hidden">
+                                <div><span class="info-label" data-i18n="pay_info_chit">சிட் தொகை:</span> <span id="pay-info-chit-amount" class="info-val">₹0</span></div>
+                                <div><span class="info-label" data-i18n="pay_info_paid">செலுத்தியது:</span> <span id="pay-info-total-paid" class="info-val green-text">₹0</span></div>
+                                <div><span class="info-label" data-i18n="pay_info_pending">நிலுவை:</span> <span id="pay-info-pending" class="info-val red-text">₹0</span></div>
+                                <div><span class="info-label" data-i18n="pay_info_interest">வட்டி/லாபம்:</span> <span id="pay-info-interest" class="info-val gold-text">₹0</span></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="pay-amount"><span data-i18n="pay_amount">செலுத்தும் தொகை (Amount Paid)</span> <span class="required">*</span></label>
+                                <input type="number" id="pay-amount" class="input-field" placeholder="தொகையை உள்ளிடவும்" data-i18n-placeholder="pay_amount_placeholder" min="1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pay-mode"><span data-i18n="pay_mode">கட்டண முறை (Payment Mode)</span> <span class="required">*</span></label>
+                                <select id="pay-mode" class="input-field select-field" required>
+                                    <option value="Cash" data-i18n="pay_mode_cash">ரொக்கம் (Cash)</option>
+                                    <option value="QR Payment" data-i18n="pay_mode_qr">ஆன்லைன் கட்டணம் (Online Payment)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="pay-date"><span data-i18n="pay_date">தேதி (Payment Date)</span> <span class="required">*</span></label>
+                                <input type="date" id="pay-date" class="input-field" required>
+                            </div>
+                            <div class="form-actions payment-actions">
+                                <button type="submit" class="btn btn-primary btn-block" id="btn-submit-payment"><i class="fa-solid fa-receipt"></i> <span data-i18n="pay_submit_btn">கட்டணத்தை சேமி</span></button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Payment History Card -->
+                    <div class="table-container-card payment-history-card">
+                        <div class="panel-header-with-actions">
+                            <h3><i class="fa-solid fa-clock-rotate-left gold-text"></i> <span data-i18n="pay_history_title">கட்டண வரலாறு (Recent Payments)</span></h3>
+                            <div class="payment-filters no-print">
+                                <select id="filter-payment-mode" class="input-field inline-select">
+                                    <option value="All" data-i18n="filter_all">அனைத்து கட்டண முறை</option>
+                                    <option value="Cash" data-i18n="filter_cash">ரொக்கம் மட்டும்</option>
+                                    <option value="QR Payment" data-i18n="filter_qr">ஆன்லைன் கட்டணம் மட்டும்</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <!-- Date Range Filters Bar -->
+                        <div class="payment-filters-bar no-print" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; background: rgba(59, 94, 67, 0.04); border: 1px solid var(--border-color); padding: 12px; border-radius: var(--radius-md); margin-bottom: 16px; justify-content: space-between;">
+                            <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+                                <div class="filter-item" style="display: flex; align-items: center; gap: 6px;">
+                                    <label for="filter-start-date" style="font-size: 0.85rem; font-weight: 600; color: var(--text-color); margin-bottom: 0;" data-i18n="filter_start_date">தொடக்கத் தேதி:</label>
+                                    <input type="date" id="filter-start-date" class="input-field" style="padding: 4px 8px; font-size: 0.85rem; width: auto; height: 32px; margin-bottom: 0;">
+                                </div>
+                                <div class="filter-item" style="display: flex; align-items: center; gap: 6px;">
+                                    <label for="filter-end-date" style="font-size: 0.85rem; font-weight: 600; color: var(--text-color); margin-bottom: 0;" data-i18n="filter_end_date">முடிவுத் தேதி:</label>
+                                    <input type="date" id="filter-end-date" class="input-field" style="padding: 4px 8px; font-size: 0.85rem; width: auto; height: 32px; margin-bottom: 0;">
+                                </div>
+                                <button class="btn btn-secondary" id="btn-clear-date-filter" style="padding: 0 10px; height: 32px; font-size: 0.8rem; display: flex; align-items: center; gap: 4px;">
+                                    <i class="fa-solid fa-rotate-left"></i> <span data-i18n="reset_btn_text">மீட்டமை</span>
+                                </button>
+                            </div>
+                            <div class="filter-total-badge" style="background: rgba(46, 154, 78, 0.1); border: 1px dashed var(--mint-dark); padding: 6px 12px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 700; color: var(--mint-dark); display: flex; align-items: center; gap: 6px;">
+                                <span data-i18n="filter_total_label">தேர்ந்தெடுக்கப்பட்ட மொத்த வரவு:</span>
+                                <span id="date-filter-total-sum" style="color: var(--maroon); font-weight: bold;">₹0</span>
+                            </div>
+                        </div>
+
+                        <div class="responsive-table-wrapper payment-history-wrapper">
+                            <table id="payments-table" class="premium-table">
+                                <thead>
+                                    <tr>
+                                        <th data-i18n="th_name">பெயர்</th>
+                                        <th data-i18n="th_contact_simple">கைபேசி</th>
+                                        <th data-i18n="th_chit_amount">சிட் தொகை (₹)</th>
+                                        <th data-i18n="th_paid_amount">செலுத்திய தொகை (₹)</th>
+                                        <th data-i18n="th_pay_mode">கட்டண முறை</th>
+                                        <th data-i18n="th_date">தேதி</th>
+                                        <th class="no-print" data-i18n="th_actions">செயல்பாடுகள்</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="payments-table-body">
+                                    <tr>
+                                        <td colspan="7" class="text-center" data-i18n="no_payments">பதிவுகள் ஏதும் இல்லை...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 5: GIFT ITEMS ================= -->
+            <section id="view-gift-items" class="dashboard-view">
+                <!-- Custom Main Gift Image Showcase Banner (Uploaded image by user) -->
+                <div class="gift-banner-showcase">
+                    <img id="gift-banner-img" src="/assets/gift_banner-Cam6tve0.jpg" alt="MK Diwali Fund Gift Banner" class="gift-banner-display">
+                    <div class="banner-overlay-text">
+                        <h3 data-i18n="gift_banner_title">சிட் பரிசுப் பொருட்கள்</h3>
+                        <p data-i18n="gift_banner_sub">உங்கள் சேமிப்புக்கு எங்கள் சிறந்த பரிசு!</p>
+                    </div>
+                </div>
+
+                <div class="gift-control-header no-print">
+                    <div class="gift-category-tabs">
+                        <button class="gift-tab active" data-category="All" data-i18n="gift_tab_all">அனைத்தும்</button>
+                        <button class="gift-tab" data-category="GoldSilver" data-i18n="gift_tab_goldsilver">தங்கம் & வெள்ளி (Gold & Silver)</button>
+                        <button class="gift-tab" data-category="Sweets" data-i18n="gift_tab_sweets">இனிப்பு & காரம் (Sweets & Kaaram)</button>
+                        <button class="gift-tab" data-category="Crackers" data-i18n="gift_tab_crackers">பட்டாசுகள் (Crackers)</button>
+                        <button class="gift-tab" data-category="Groceries" data-i18n="gift_tab_groceries">மளிகைப் பொருட்கள் (Home Groceries)</button>
+                    </div>
+                    <button class="btn btn-primary" id="btn-add-gift-modal-trigger"><i class="fa-solid fa-plus"></i> <span data-i18n="gift_add_btn">புதிய பரிசுப் பொருள் சேர்</span></button>
+                </div>
+
+                <!-- Gift Cards Grid -->
+                <div class="gift-grid" id="gift-cards-container">
+                    <!-- Dynamic cards will render here -->
+                </div>
+            </section>
+
+            <!-- ================= PAGE 6: QR PAYMENT ================= -->
+            <section id="view-qr-payment" class="dashboard-view">
+                <div class="qr-layout-grid">
+                    <!-- Left Column: Premium QR Code Display Card -->
+                    <div class="qr-card-card">
+                        <div class="qr-card-header">
+                            <h3><i class="fa-solid fa-mobile-screen-button gold-text"></i> <span data-i18n="qr_title">QR கட்டண மையம்</span></h3>
+                            <span class="qr-card-tagline">MK Diwali Fund</span>
+                        </div>
+                        <div class="qr-card-body">
+                            <div class="qr-display-box" id="qr-display-box">
+                                <!-- Dynamic QR image from settings or default template -->
+                                <img id="dashboard-qr-image" src="/assets/default_qr-BjZhBxKh.jpg" alt="UPI QR Code" class="qr-image-display">
+                            </div>
+                            <h4 id="dashboard-qr-name" class="qr-receiver-name">vinai priyan</h4>
+                            <p class="qr-scan-message" data-i18n="qr_scan_msg">"QR-ஐ Scan செய்து கட்டணத்தை செலுத்துங்கள்"</p>
+                            
+                            <!-- Supported payment brands -->
+                            <div class="payment-brand-icons">
+                                <div class="brand-item" title="Google Pay"><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='800'%20width='1200'%20class='main-header__logo-image'%20fill='%23A1A1A1'%20viewBox='-65.39955%20-43.28375%20566.7961%20259.7025'%3e%3cpath%20fill='%235f6368'%20d='M206.197%2084.585v50.75h-16.1V10.005h42.7a38.61%2038.61%200%200127.65%2010.85%2034.88%2034.88%200%200111.55%2026.45%2034.72%2034.72%200%2001-11.55%2026.6q-11.2%2010.68-27.65%2010.67h-26.6zm0-59.15v43.75h27a21.28%2021.28%200%200015.93-6.48%2021.36%2021.36%200%20000-30.63%2021%2021%200%2000-15.93-6.65h-27zm102.9%2021.35q17.85%200%2028.18%209.54%2010.33%209.54%2010.32%2026.16v52.85h-15.4v-11.9h-.7q-10%2014.7-26.6%2014.7-14.17%200-23.71-8.4a26.82%2026.82%200%2001-9.54-21q0-13.31%2010.06-21.17%2010.06-7.86%2026.86-7.88%2014.34%200%2023.62%205.25v-3.68a18.33%2018.33%200%2000-6.65-14.25%2022.8%2022.8%200%2000-15.54-5.87q-13.49%200-21.35%2011.38l-14.18-8.93q11.7-16.8%2034.63-16.8zm-20.83%2062.3a12.86%2012.86%200%20005.34%2010.5%2019.64%2019.64%200%200012.51%204.2%2025.67%2025.67%200%200018.11-7.52q8-7.53%208-17.67-7.53-6-21-6-9.81%200-16.36%204.73c-4.41%203.2-6.6%207.09-6.6%2011.76zm147.73-59.5l-53.76%20123.55h-16.62l19.95-43.23-35.35-80.32h17.5l25.55%2061.6h.35l24.85-61.6z'/%3e%3cpath%20fill='%234285f4'%20d='M141.137%2073.645a85.79%2085.79%200%2000-1.24-14.64h-67.9v27.73h38.89a33.33%2033.33%200%2001-14.38%2021.88v18h23.21c13.59-12.53%2021.42-31.06%2021.42-52.97z'/%3e%3cpath%20fill='%2334a853'%20d='M71.997%20144.005c19.43%200%2035.79-6.38%2047.72-17.38l-23.21-18c-6.46%204.38-14.78%206.88-24.51%206.88-18.78%200-34.72-12.66-40.42-29.72H7.667v18.55a72%2072%200%200064.33%2039.67z'/%3e%3cpath%20fill='%23fbbc04'%20d='M31.577%2085.785a43.14%2043.14%200%20010-27.56v-18.55H7.667a72%2072%200%20000%2064.66z'/%3e%3cpath%20fill='%23ea4335'%20d='M71.997%2028.505a39.09%2039.09%200%200127.62%2010.8l20.55-20.55A69.18%2069.18%200%200071.997.005a72%2072%200%2000-64.33%2039.67l23.91%2018.55c5.7-17.06%2021.64-29.72%2040.42-29.72z'/%3e%3c/svg%3e" alt="GPay" class="brand-img"></div>
+                                <div class="brand-item" title="PhonePe"><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='800'%20width='1200'%20xml:space='preserve'%20y='0'%20x='0'%20id='Layer_2'%20version='1.1'%20viewBox='-19.77372%20-8.949675%20171.37224%2053.69805'%3e%3cstyle%20id='style28'%20type='text/css'%3e.st0{fill:%235f259f}%3c/style%3e%3cg%20transform='translate(.0248%20-6.071)'%20id='g34'%3e%3ccircle%20r='17.9'%20id='ellipse30'%20cy='24'%20cx='17.9'%20class='st0'%20transform='matrix(.2298%20-.9732%20.9732%20.2298%20-9.5957%2035.8754)'/%3e%3cpath%20id='path32'%20d='M90.5%2034.2v-6.5c0-1.6-.6-2.4-2.1-2.4-.6%200-1.3.1-1.7.2V35c0%20.3-.3.6-.6.6h-2.3c-.3%200-.6-.3-.6-.6V23.9c0-.4.3-.7.6-.8%201.5-.5%203-.8%204.6-.8%203.6%200%205.6%201.9%205.6%205.4v7.4c0%20.3-.3.6-.6.6H92c-.9%200-1.5-.7-1.5-1.5zm9-3.9l-.1.9c0%201.2.8%201.9%202.1%201.9%201%200%201.9-.3%202.9-.8.1%200%20.2-.1.3-.1.2%200%20.3.1.4.2.1.1.3.4.3.4.2.3.4.7.4%201%200%20.5-.3%201-.7%201.2-1.1.6-2.4.9-3.8.9-1.6%200-2.9-.4-3.9-1.2-1-.9-1.6-2.1-1.6-3.6v-3.9c0-3.1%202-5%205.4-5%203.3%200%205.2%201.8%205.2%205v2.4c0%20.3-.3.6-.6.6h-6.3zm-.1-2.2h3.8v-1c0-1.2-.7-2-1.9-2s-1.9.7-1.9%202zm25.5%202.2l-.1.9c0%201.2.8%201.9%202.1%201.9%201%200%201.9-.3%202.9-.8.1%200%20.2-.1.3-.1.2%200%20.3.1.4.2.1.1.3.4.3.4.2.3.4.7.4%201%200%20.5-.3%201-.7%201.2-1.1.6-2.4.9-3.8.9-1.6%200-2.9-.4-3.9-1.2-1-.9-1.6-2.1-1.6-3.6v-3.9c0-3.1%202-5%205.4-5%203.3%200%205.2%201.8%205.2%205v2.4c0%20.3-.3.6-.6.6h-6.3zm-.1-2.2h3.8v-1c0-1.2-.7-2-1.9-2s-1.9.7-1.9%202zM66%2035.7h1.4c.3%200%20.6-.3.6-.6v-7.4c0-3.4-1.8-5.4-4.8-5.4-.9%200-1.9.2-2.5.4V19c0-.8-.7-1.5-1.5-1.5h-1.4c-.3%200-.6.3-.6.6v17c0%20.3.3.6.6.6h2.3c.3%200%20.6-.3.6-.6v-9.4c.5-.2%201.2-.3%201.7-.3%201.5%200%202.1.7%202.1%202.4v6.5c.1.7.7%201.4%201.5%201.4zm15.1-8.4V31c0%203.1-2.1%205-5.6%205-3.4%200-5.6-1.9-5.6-5v-3.7c0-3.1%202.1-5%205.6-5%203.5%200%205.6%201.9%205.6%205zm-3.5%200c0-1.2-.7-2-2-2s-2%20.7-2%202V31c0%201.2.7%201.9%202%201.9s2-.7%202-1.9zm-22.3-1.7c0%203.2-2.4%205.4-5.6%205.4-.8%200-1.5-.1-2.2-.4v4.5c0%20.3-.3.6-.6.6h-2.3c-.3%200-.6-.3-.6-.6V19.2c0-.4.3-.7.6-.8%201.5-.5%203-.8%204.6-.8%203.6%200%206.1%202.2%206.1%205.6zM51.7%2023c0-1.6-1.1-2.4-2.6-2.4-.9%200-1.5.3-1.5.3v6.6c.6.3.9.4%201.6.4%201.5%200%202.6-.9%202.6-2.4V23zm68.2%202.6c0%203.2-2.4%205.4-5.6%205.4-.8%200-1.5-.1-2.2-.4v4.5c0%20.3-.3.6-.6.6h-2.3c-.3%200-.6-.3-.6-.6V19.2c0-.4.3-.7.6-.8%201.5-.5%203-.8%204.6-.8%203.6%200%206.1%202.2%206.1%205.6zm-3.6-2.6c0-1.6-1.1-2.4-2.6-2.4-.9%200-1.5.3-1.5.3v6.6c.6.3.9.4%201.6.4%201.5%200%202.6-.9%202.6-2.4V23z'%20class='st0'/%3e%3c/g%3e%3cpath%20id='path36'%20d='M26.0248%2013.229c0-.7-.6-1.3-1.3-1.3h-2.4l-5.5-6.3c-.5-.6-1.3-.8-2.1-.6l-1.9.6c-.3.1-.4.5-.2.7l6%205.7h-9.1c-.3%200-.5.2-.5.5v1c0%20.7.6%201.3%201.3%201.3h1.4v4.8c0%203.6%201.9%205.7%205.1%205.7%201%200%201.8-.1%202.8-.5v3.2c0%20.9.7%201.6%201.6%201.6h1.4c.3%200%20.6-.3.6-.6v-14.3h2.3c.3%200%20.5-.2.5-.5zm-6.4%208.6c-.6.3-1.4.4-2%20.4-1.6%200-2.4-.8-2.4-2.6v-4.8h4.4z'%20fill='%23fff'/%3e%3c/svg%3e" alt="PhonePe" class="brand-img"></div>
+                                <div class="brand-item" title="Paytm"><img src="data:image/svg+xml,%3csvg%20xmlns='http://www.w3.org/2000/svg'%20height='800'%20width='1200'%20viewBox='-2.5242255%20-1.318595%2021.876621%207.91157'%3e%3cg%20fill='none'%3e%3cpath%20d='M16.77137%201.55572c-.15275-.43674-.56903-.75036-1.05798-.75036h-.01023c-.31785%200-.6043.13229-.80821.34466-.20426-.21237-.49072-.34466-.80822-.34466h-.01023c-.2794%200-.5348.1023-.73095.27164V.99092c-.0067-.08573-.07726-.1531-.1644-.1531h-.75c-.09172%200-.1658.07408-.1658.16615v4.07282c0%20.09207.07408.16616.1658.16616h.75c.08361%200%20.1524-.06244.16334-.14323l-.00035-2.92382a.26293.26293%200%2001.0014-.02928c.012-.13053.1076-.23777.2586-.25118h.13827c.06315.00564.11642.02787.1584.06138.06526.05186.1016.13159.1016.21908l.00282%202.90936c0%20.09207.07443.1665.1658.1665h.75c.08856%200%20.16052-.07055.16476-.15839l-.00035-2.92135c-.00036-.09596.0441-.18274.12206-.23425.03845-.0247.08467-.04127.13793-.04621h.13829c.16228.01411.26035.13723.26.28046l.00282%202.90548c0%20.09207.07444.16615.1658.16615h.75001c.09137%200%20.1658-.07408.1658-.16615V1.95259c0-.21308-.02398-.30374-.05679-.39687M11.69398.84843h-.42897V.15134C11.265.06773%2011.19727%200%2011.11366%200c-.00988%200-.0194.0014-.02857.00317-.47555.13053-.3803.78917-1.24848.84526h-.08432c-.0127%200-.02469.00176-.03633.00423h-.0007l.0007.00035c-.07409.01659-.12982.0822-.12982.16123v.75c0%20.09137.07443.1658.16615.1658h.45262l-.0007%203.1803c0%20.09066.07337.16404.16403.16404h.74154c.09031%200%20.1637-.07338.1637-.16404l.00034-3.1803h.42016c.09137%200%20.1658-.07443.1658-.1658v-.75c0-.09137-.07443-.1658-.1658-.1658'%20fill='%2300BAF2'/%3e%3cpath%20d='M8.99555.84843h-.75c-.09137%200-.16546.07444-.16546.1658v1.55082c-.00176.09595-.07937.17286-.17568.17286h-.31397c-.09737%200-.17604-.07832-.17604-.17569l-.00282-1.54798c0-.09137-.07444-.1658-.1658-.1658h-.75001c-.09172%200-.1658.07443-.1658.1658v1.69968c0%20.64558.46037%201.10596%201.1063%201.10596%200%200%20.48472%200%20.49954.00282.08749.00988.15557.08325.15557.17356%200%20.08926-.06667.16228-.1531.17322-.00423.0007-.00811.00176-.0127.00247l-1.09679.00388c-.09172%200-.1658.07443-.1658.1658v.74966c0%20.09172.07408.1658.1658.1658h1.22626c.64628%200%201.1063-.46002%201.1063-1.10595v-3.1369c0-.09137-.07408-.1658-.1658-.1658M1.73602%202.22268v.46285c0%20.097-.07867.17603-.17568.17603l-.4759.00035v-.92745h.4759c.09701%200%20.17568.07831.17568.17568zM1.80199.84825H.16263C.07267.84825%200%20.92128%200%201.01088v.73484c0%20.00141.00035.00282.00035.00423%200%20.00353-.00035.00706-.00035.01023v3.32599c0%20.09031.06773.16405.1517.16616h.7641c.09137%200%20.1658-.07408.1658-.1658l.00283-1.13983h.71755c.60042%200%201.01882-.41663%201.01882-1.01953V1.8692c0-.6029-.4184-1.02094-1.01882-1.02094zM4.8479%203.98346v.11712c0%20.00953-.0014.0187-.00281.02752a.17498.17498%200%2001-.00706.02434c-.02329.06562-.0889.11324-.16687.11324h-.3122c-.09737%200-.17674-.07408-.17674-.1651v-.14146c0-.00176-.00036-.00353-.00036-.00529l.00036-.37641v-.11784l.00035-.00105c.00035-.09067.07902-.16404.17639-.16404h.3122c.09772%200%20.17675.07373.17675.1651zM4.72868.85256h-1.0407c-.09207%200-.1665.06985-.1665.15557v.29175c0%20.00176.00035.00388.00035.00564%200%20.00212-.00036.00423-.00036.00635v.3997c0%20.09067.07903.16475.1764.16475h.99094c.07832.01235.14041.0695.14923.15875v.09666c-.00882.08502-.0702.1471-.145.15416h-.4907c-.65264%200-1.1176.43357-1.1176%201.04246v.87207c0%20.60537.3997%201.0361%201.04774%201.0361h1.35996c.24412%200%20.44203-.18485.44203-.41239V1.97827c0-.69003-.3556-1.12571-1.2058-1.12571z'%20fill='%231F336B'/%3e%3c/g%3e%3c/svg%3e" alt="Paytm" class="brand-img"></div>
+                                <div class="brand-item" title="UPI"><img src="/assets/upi-logo-CfhSst4z.svg" alt="UPI" class="brand-img"></div>
+                            </div>
+
+                            <div class="upi-id-badge" style="display: inline-flex; align-items: center; gap: 8px;">
+                                <span class="upi-label">UPI ID:</span>
+                                <span id="dashboard-upi-id" class="upi-value">vinaipriyan-2@okaxis</span>
+                                <button id="btn-copy-upi" class="btn btn-secondary" style="padding: 2px 8px; font-size: 0.75rem; min-width: auto; height: auto; border: none; background: var(--maroon-light); color: white; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; margin-left: 6px;" title="Copy UPI ID"><i class="fa-solid fa-copy"></i> Copy</button>
+                            </div>
+                        </div>
+                        <div class="qr-card-actions no-print">
+                            <!-- User & Admin Actions -->
+                            <button class="btn btn-secondary" id="btn-download-qr" style="width: 100%; justify-content: center;"><i class="fa-solid fa-download"></i> <span data-i18n="qr_download">Download QR Image</span></button>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Interactive Payment Flow / Success Simulation -->
+                    <div class="payment-simulation-card">
+                        <div class="panel-header">
+                            <h4><i class="fa-solid fa-circle-check green-text animate-pulse"></i> <span data-i18n="qr_sim_title">கட்டண சரிபார்ப்பு / உதவி</span></h4>
+                        </div>
+                        <div class="panel-body simulation-body">
+                            <div class="payment-steps-visual">
+                                <div class="step-line"></div>
+                                <div class="sim-step">
+                                    <div class="step-num">1</div>
+                                    <div class="step-desc">
+                                        <h5 data-i18n="qr_step1_title">ஸ்கேன் செய்யுங்க</h5>
+                                        <p data-i18n="qr_step1_desc">உங்கள் மொபைல் UPI ஆப் (GPay/PhonePe) மூலம் QR-ஐ ஸகேன் செய்யுங்கள்.</p>
+                                    </div>
+                                </div>
+                                <div class="sim-step">
+                                    <div class="step-num">2</div>
+                                    <div class="step-desc">
+                                        <h5 data-i18n="qr_step2_title">தொகையை செலுத்தவும்</h5>
+                                        <p data-i18n="qr_step2_desc">உரிய தவணை தொகையை உள்ளிட்டுக் கட்டணத்தை செலுத்தவும்.</p>
+                                    </div>
+                                </div>
+                                <div class="sim-step">
+                                    <div class="step-num">3</div>
+                                    <div class="step-desc">
+                                        <h5 data-i18n="qr_step3_title">நிர்வாகியிடம் பகிரவும்</h5>
+                                        <p data-i18n="qr_step3_desc">கட்டணப் பரிவர்த்தனை ரசீதை நிர்வாகியிடம் காட்டி, தவணை கட்டணத்தை வரவு வைக்கவும்.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Success Illustration Card -->
+                            <div class="success-illustration-container">
+                                <div class="success-icon-globe">
+                                    <i class="fa-solid fa-shield-heart gold-text"></i>
+                                    <div class="pulse-ring"></div>
+                                </div>
+                                <div class="success-message-text">
+                                    <h5 data-i18n="qr_trust_title">நம்பிக்கையான பரிவர்த்தனை</h5>
+                                    <p data-i18n="qr_trust_desc">உங்களது ஒவ்வொரு சேமிப்பும் பாதுகாப்பாக கண்காணிக்கப்படுகிறது.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hidden file input for QR Upload -->
+                <input type="file" id="qr-file-input" accept="image/*" class="hidden">
+            </section>
+
+            <!-- ================= PAGE 7: REPORTS ================= -->
+            <section id="view-reports" class="dashboard-view">
+                <div class="reports-toolbar no-print">
+                    <div class="report-date-range">
+                        <span class="report-tag" data-i18n="report_toolbar_title">அறிக்கை விவரங்கள்</span>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-secondary" id="btn-print-report"><i class="fa-solid fa-print"></i> <span data-i18n="report_print_btn">அச்சிடு (Print)</span></button>
+                        <button class="btn btn-primary" id="btn-download-pdf-report"><i class="fa-solid fa-file-pdf"></i> <span data-i18n="report_pdf_btn">PDF ஆகப் பதிவிறக்கு</span></button>
+                    </div>
+                </div>
+
+                <!-- Printable Report Layout -->
+                <div id="printable-report-area" class="printable-report-area">
+                    <div class="report-document-header">
+                        <div class="report-header-company">
+                            <h2 id="report-company-name">MK Diwali Fund</h2>
+                            <p id="report-company-address">சென்னை, தமிழ்நாடு</p>
+                            <p id="report-company-mobile">கைபேசி: 98765 43210</p>
+                        </div>
+                        <div class="report-document-meta">
+                            <h3 data-i18n="report_doc_title">நிதி அறிக்கை (Financial Report)</h3>
+                            <p><span data-i18n="report_date_label">தேதி</span>: <span id="report-current-date">14 ஜூன் 2026</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Stat Cards replicated inside report for prints -->
+                    <div class="report-stats-grid">
+                        <div class="report-stat-item">
+                            <span class="lbl" data-i18n="stat_members">மொத்த உறுப்பினர்கள்</span>
+                            <span class="val" id="report-stat-members">0</span>
+                        </div>
+                        <div class="report-stat-item">
+                            <span class="lbl" data-i18n="stat_collection">மொத்த சேகரிப்பு</span>
+                            <span class="val" id="report-stat-collection">₹0</span>
+                        </div>
+                        <div class="report-stat-item">
+                            <span class="lbl" data-i18n="stat_pending">நிலுவைத் தொகை</span>
+                            <span class="val" id="report-stat-pending">₹0</span>
+                        </div>
+                        <div class="report-stat-item">
+                            <span class="lbl" data-i18n="stat_cash">ரொக்கம் (Cash)</span>
+                            <span class="val" id="report-stat-cash">₹0</span>
+                        </div>
+                        <div class="report-stat-item">
+                            <span class="lbl" data-i18n="stat_qr">QR கட்டணம் (UPI)</span>
+                            <span class="val" id="report-stat-qr">₹0</span>
+                        </div>
+                    </div>
+
+                    <!-- Custom SVG or CSS Chart for Report -->
+                    <div class="report-chart-section">
+                        <h4 data-i18n="report_chart_title">கட்டண வரவு vs நிலுவை ஒப்பீடு (Collection vs Pending Charts)</h4>
+                        <div class="visual-chart-box">
+                            <div class="svg-bar-chart-container">
+                                <!-- Custom dynamic SVG representation -->
+                                <svg width="100%" height="240" viewBox="0 0 500 240" id="report-svg-chart">
+                                    <!-- Background grid lines -->
+                                    <line x1="50" y1="30" x2="450" y2="30" stroke="rgba(27, 45, 23, 0.12)" stroke-dasharray="5,5" />
+                                    <line x1="50" y1="80" x2="450" y2="80" stroke="rgba(27, 45, 23, 0.12)" stroke-dasharray="5,5" />
+                                    <line x1="50" y1="130" x2="450" y2="130" stroke="rgba(27, 45, 23, 0.12)" stroke-dasharray="5,5" />
+                                    <line x1="50" y1="180" x2="450" y2="180" stroke="rgba(27, 45, 23, 0.25)" />
+                                    
+                                    <!-- Dynamic bars (rendered via JS) -->
+                                    <rect id="svg-bar-total" x="80" y="180" width="60" height="0" fill="#253D22" rx="4"/>
+                                    <rect id="svg-bar-paid" x="180" y="180" width="60" height="0" fill="#2E9A4E" rx="4"/>
+                                    <rect id="svg-bar-pending" x="280" y="180" width="60" height="0" fill="#D32F2F" rx="4"/>
+                                    <rect id="svg-bar-qr" x="380" y="180" width="60" height="0" fill="#F57C00" rx="4"/>
+
+                                    <!-- Chart labels -->
+                                    <text x="110" y="200" text-anchor="middle" font-size="12" fill="var(--text-muted)" font-family="Mukta Malar" data-i18n="chart_lbl_total">சிட் தொகை</text>
+                                    <text x="210" y="200" text-anchor="middle" font-size="12" fill="var(--text-muted)" font-family="Mukta Malar" data-i18n="chart_lbl_paid">வரவு</text>
+                                    <text x="310" y="200" text-anchor="middle" font-size="12" fill="var(--text-muted)" font-family="Mukta Malar" data-i18n="chart_lbl_pending">நிலுவை</text>
+                                    <text x="410" y="200" text-anchor="middle" font-size="12" fill="var(--text-muted)" font-family="Mukta Malar" data-i18n="chart_lbl_qr">QR வரவு</text>
+
+                                    <!-- Values above bars (rendered via JS) -->
+                                    <text id="svg-val-total" x="110" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="var(--text-color)">₹0</text>
+                                    <text id="svg-val-paid" x="210" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E9A4E">₹0</text>
+                                    <text id="svg-val-pending" x="310" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#D32F2F">₹0</text>
+                                    <text id="svg-val-qr" x="410" y="170" text-anchor="middle" font-size="12" font-weight="bold" fill="#F57C00">₹0</text>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Signatures -->
+                    <div class="report-signatures">
+                        <div class="sig-block">
+                            <p class="sig-title" data-i18n="report_sig_creator">தயாரித்தவர்</p>
+                            <div class="sig-line"></div>
+                        </div>
+                        <div class="sig-block">
+                            <p class="sig-title" data-i18n="report_sig_manager">மேலாளர் கையொப்பம்</p>
+                            <div class="sig-line"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= PAGE 8: CONTACT ================= -->
+            <section id="view-contact" class="dashboard-view">
+                <div class="contact-grid">
+                    <!-- Owner Details Card -->
+                    <div class="form-container-card owner-details-card" style="max-width: 100%;">
+                        <div class="form-header">
+                            <h3><i class="fa-solid fa-user-shield gold-text"></i> <span data-i18n="contact_owner_title">நிர்வாகி விவரங்கள் (Owner Details)</span></h3>
+                            <p data-i18n="contact_owner_sub">MK தீபாவளி ஃபண்ட் உரிமையாளர் மற்றும் தொடர்பு விவரங்கள்.</p>
+                        </div>
+                        <div class="owners-list" style="display: flex; flex-direction: column; gap: 20px;">
+                            <!-- Owner 1 -->
+                            <div class="owner-profile-layout" style="border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+                                <div class="owner-avatar">
+                                    <div class="owner-avatar-circle">
+                                        <i class="fa-solid fa-user-tie"></i>
+                                    </div>
+                                </div>
+                                <div class="owner-info-details">
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_name_lbl">நிர்வாகி பெயர்:</span>
+                                        <span class="info-val" style="font-weight:700;">Subramani K</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_phone_lbl">கைபேசி எண்:</span>
+                                        <span class="info-val" style="font-weight:700;">9095950873, 8248567740</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_email_lbl">மின்னஞ்சல்:</span>
+                                        <span class="info-val">mkdiwalifund@gmail.com</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_address_lbl">முகவரி:</span>
+                                        <span class="info-val">Trichy, Tamil Nadu</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Owner 2 -->
+                            <div class="owner-profile-layout">
+                                <div class="owner-avatar">
+                                    <div class="owner-avatar-circle">
+                                        <i class="fa-solid fa-user-tie"></i>
+                                    </div>
+                                </div>
+                                <div class="owner-info-details">
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_name_lbl">நிர்வாகி பெயர்:</span>
+                                        <span class="info-val" style="font-weight:700;">Kamaraj</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_phone_lbl">கைபேசி எண்:</span>
+                                        <span class="info-val" style="font-weight:700;">6381468968, 9952490242</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_email_lbl">மின்னஞ்சல்:</span>
+                                        <span class="info-val">mkdiwalifund@gmail.com</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label" data-i18n="owner_address_lbl">முகவரி:</span>
+                                        <span class="info-val">Trichy, Tamil Nadu</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WhatsApp Group Joining Card -->
+                    <div class="form-container-card whatsapp-join-card">
+                        <div class="form-header">
+                            <h3><i class="fa-brands fa-whatsapp text-success"></i> <span data-i18n="whatsapp_title">வாட்ஸ்அப் குழு (WhatsApp Group)</span></h3>
+                            <p data-i18n="whatsapp_sub">எங்கள் சிட் பண்ட் வாடிக்கையாளர் குழுவில் இணைந்து உடனுக்குடன் தகவல்களைப் பெறுங்கள்.</p>
+                        </div>
+                        <div class="whatsapp-join-body">
+                            <p class="whatsapp-info-text" data-i18n="whatsapp_desc">அறிவிப்புகள், மாதாந்திர தவணை நிலவரங்கள் மற்றும் சிறப்பு அறிவிப்புகளைப் பெற வாட்ஸ்அப் குழுவில் இணையுங்கள்.</p>
+                            
+                            <!-- WhatsApp Join Area -->
+                            <div class="whatsapp-action-box" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; margin-top: 25px; padding: 20px; background: rgba(37,211,102,0.05); border: 1px dashed rgba(37,211,102,0.3); border-radius: var(--radius-md);">
+                                <a href="https://chat.whatsapp.com/HFx1u8Sh31iLxOmI8kc9d0?s=sh&p=a&ilr=2" target="_blank" class="btn btn-whatsapp" id="btn-whatsapp-join" style="display: inline-flex; align-items: center; gap: 10px; padding: 12px 24px; background: #25D366; color: white; border: none; border-radius: var(--radius-md); font-weight: bold; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 15px rgba(37,211,102,0.3);">
+                                    <i class="fa-brands fa-whatsapp" style="font-size: 1.5rem;"></i>
+                                    <span data-i18n="whatsapp_btn_text">குழுவில் இணையவும் (Join Group)</span>
+                                </a>
+                                <div class="whatsapp-small-footer" style="display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">
+                                    <i class="fa-brands fa-whatsapp text-success" style="font-size: 1.1rem;"></i>
+                                    <span data-i18n="whatsapp_footer_text">உடனடி வாட்ஸ்அப் இணைப்பு</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ================= SETUP WIZARD OVERLAY MODAL ================= -->
+    <!-- Displays automatically on page load if Supabase credentials are not found -->
+    <div id="setup-wizard-overlay" class="modal-overlay hidden">
+        <div class="setup-wizard-modal">
+            <div class="setup-wizard-header">
+                <div class="setup-icon-box"><i class="fa-solid fa-circle-nodes gold-text animate-pulse"></i></div>
+                <h2>MK Diwali Fund - Supabase Setup Wizard</h2>
+                <p>தரவுத்தள இணைப்பு இல்லை. மென்பொருள் செயல்பட உங்கள் Supabase விவரங்களை உள்ளிடவும்.</p>
+            </div>
+            <div class="setup-wizard-body">
+                <form id="wizard-config-form" class="theme-form">
+                    <div class="form-group">
+                        <label for="wiz-supabase-url">Supabase URL <span class="required">*</span></label>
+                        <input type="url" id="wiz-supabase-url" class="input-field" placeholder="https://xxxxxx.supabase.co" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="wiz-supabase-key">Supabase Anon Key <span class="required">*</span></label>
+                        <input type="password" id="wiz-supabase-key" class="input-field" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." required>
+                    </div>
+                    <div class="connection-tester-box">
+                        <span id="wizard-connection-status" class="status-badge status-offline">
+                            <span class="status-dot"></span>
+                            <span id="wizard-status-text">Not Checked</span>
+                        </span>
+                    </div>
+                    <div class="form-actions wizard-actions" style="flex-wrap: wrap; gap: 10px;">
+                        <button type="button" class="btn btn-secondary" id="btn-wizard-test-connection" style="flex: 1;"><i class="fa-solid fa-plug"></i> இணைப்பை சோதி</button>
+                        <button type="submit" class="btn btn-primary" id="btn-wizard-save" style="flex: 1;"><i class="fa-solid fa-circle-check"></i> சேமித்து துவக்கு</button>
+                        <button type="button" class="btn btn-secondary" id="btn-wizard-demo" style="width: 100%; background: var(--maroon); color: var(--gold-light); border: 1px solid var(--gold);"><i class="fa-solid fa-circle-play"></i> டெமோ முறையில் காண்க (Demo Mode)</button>
+                        <button type="button" class="btn btn-danger-outline" id="btn-wizard-logout" style="width: 100%;"><i class="fa-solid fa-right-from-bracket"></i> வெளியேறு (Logout)</button>
+                    </div>
+                </form>
+            </div>
+            <div class="setup-wizard-footer">
+                <p class="warning-alert">
+                    <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+                    இணைப்பிற்குப் பின், <code>schema.sql</code>-ல் உள்ள SQL கட்டளைகளை உங்கள் Supabase SQL Editor-ல் இயக்குவதை உறுதிப்படுத்திக் கொள்ளவும்.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= ADD GIFT MODAL ================= -->
+    <div id="add-gift-modal" class="modal-overlay hidden">
+        <div class="theme-modal">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-gift gold-text"></i> <span data-i18n="gift_modal_title">புதிய பரிசுப் பொருள் பதிவு</span></h3>
+                <button class="btn-close-modal" id="btn-close-gift-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="add-gift-form" class="theme-form">
+                <input type="hidden" id="gift-edit-id" value="">
+                <div class="form-group">
+                    <label for="gift-name"><span data-i18n="gift_modal_name">பரிசின் பெயர் (Name)</span> <span class="required">*</span></label>
+                    <input type="text" id="gift-name" class="input-field" placeholder="லட்டு, மிக்ஸி..." data-i18n-placeholder="gift_modal_name_placeholder" required>
+                </div>
+                <div class="form-group">
+                    <label for="gift-category"><span data-i18n="gift_modal_category">வகை (Category)</span> <span class="required">*</span></label>
+                    <select id="gift-category" class="input-field select-field" required>
+                        <option value="GoldSilver" data-i18n="gift_tab_goldsilver">தங்கம் & வெள்ளி (Gold & Silver)</option>
+                        <option value="Sweets" data-i18n="gift_tab_sweets">இனிப்பு & காரம் (Sweets & Kaaram)</option>
+                        <option value="Crackers" data-i18n="gift_tab_crackers">பட்டாசுகள் (Crackers)</option>
+                        <option value="Groceries" data-i18n="gift_tab_groceries">மளிகைப் பொருட்கள் (Home Groceries)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="gift-description" data-i18n="gift_modal_desc">விளக்கம் (Description)</label>
+                    <textarea id="gift-description" class="input-field text-area-field" placeholder="பரிசுப் பொருள் பற்றிய சிறுகுறிப்பு..." data-i18n-placeholder="gift_modal_desc_placeholder" rows="2"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="gift-image-input" data-i18n="gift_modal_image">பரிசுப் படம் (Upload Image)</label>
+                    <input type="file" id="gift-image-input" accept="image/*" class="input-field">
+                    <div id="gift-img-preview-box" class="logo-preview-box hidden">
+                        <img id="gift-img-preview" src="" alt="Gift Preview" class="logo-preview-img">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-gift-modal" data-i18n="gift_modal_cancel">ரத்து செய்க</button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-gift-submit" data-i18n="gift_modal_save">சேமிக்க</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Floating WhatsApp Button -->
+    <a href="https://chat.whatsapp.com/HFx1u8Sh31iLxOmI8kc9d0?s=sh&p=a&ilr=2" target="_blank" class="whatsapp-float-btn" id="whatsapp-float-btn" title="Join WhatsApp Group">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- App Script -->
+</body>
+</html>
