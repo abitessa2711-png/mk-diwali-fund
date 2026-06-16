@@ -11,7 +11,7 @@ let appState = {
     qrSettings: {
         upi_id: 'vinaipriyan-2@okaxis',
         qr_name: 'vinai priyan',
-        qr_image: './default_qr.jpg' 
+        qr_image: '/default_qr.jpg' 
     },
     appSettings: {
         company_name: 'MK Diwali Fund',
@@ -536,7 +536,7 @@ const DBService = {
             if (!appState.qrSettings.upi_id || appState.qrSettings.upi_id.includes('mkdiwalifund') || appState.qrSettings.upi_id.includes('ybl') || (appState.qrSettings.qr_name && (appState.qrSettings.qr_name.includes('KM') || appState.qrSettings.qr_name === 'KM Chit Fund' || appState.qrSettings.qr_name.includes('Diwali')))) {
                 appState.qrSettings.qr_name = 'vinai priyan';
                 appState.qrSettings.upi_id = 'vinaipriyan-2@okaxis';
-                appState.qrSettings.qr_image = './default_qr.jpg';
+                appState.qrSettings.qr_image = '/default_qr.jpg';
                 localStorage.setItem('demo_qr_settings', JSON.stringify(appState.qrSettings));
             }
             return;
@@ -548,11 +548,11 @@ const DBService = {
             if (!appState.qrSettings.upi_id || appState.qrSettings.upi_id.includes('mkdiwalifund') || appState.qrSettings.upi_id.includes('ybl') || (appState.qrSettings.qr_name && (appState.qrSettings.qr_name.includes('KM') || appState.qrSettings.qr_name === 'KM Chit Fund' || appState.qrSettings.qr_name.includes('Diwali')))) {
                 appState.qrSettings.qr_name = 'vinai priyan';
                 appState.qrSettings.upi_id = 'vinaipriyan-2@okaxis';
-                appState.qrSettings.qr_image = './default_qr.jpg';
+                appState.qrSettings.qr_image = '/default_qr.jpg';
                 supabaseClient.from('qr_settings').update({
                     qr_name: 'vinai priyan',
                     upi_id: 'vinaipriyan-2@okaxis',
-                    qr_image: './default_qr.jpg'
+                    qr_image: '/default_qr.jpg'
                 }).eq('id', appState.qrSettings.id).then(({error: upErr}) => {
                     if (upErr) console.error("Database QR settings migration error:", upErr);
                 });
@@ -561,7 +561,7 @@ const DBService = {
             const defaultQR = {
                 upi_id: 'vinaipriyan-2@okaxis',
                 qr_name: 'vinai priyan',
-                qr_image: './default_qr.jpg'
+                qr_image: '/default_qr.jpg'
             };
             const { data: inserted, error: insertErr } = await supabaseClient.from('qr_settings').insert([defaultQR]).select();
             if (!insertErr && inserted.length > 0) {
@@ -1023,12 +1023,12 @@ const DBService = {
         appState.qrSettings = savedQr ? JSON.parse(savedQr) : {
             upi_id: 'vinaipriyan-2@okaxis',
             qr_name: 'vinai priyan',
-            qr_image: './default_qr.jpg'
+            qr_image: '/default_qr.jpg'
         };
         if (!appState.qrSettings.upi_id || appState.qrSettings.upi_id.includes('mkdiwalifund') || appState.qrSettings.upi_id.includes('ybl') || (appState.qrSettings.qr_name && (appState.qrSettings.qr_name.includes('KM') || appState.qrSettings.qr_name === 'KM Chit Fund' || appState.qrSettings.qr_name.includes('Diwali')))) {
             appState.qrSettings.qr_name = 'vinai priyan';
             appState.qrSettings.upi_id = 'vinaipriyan-2@okaxis';
-            appState.qrSettings.qr_image = './default_qr.jpg';
+            appState.qrSettings.qr_image = '/default_qr.jpg';
             localStorage.setItem('demo_qr_settings', JSON.stringify(appState.qrSettings));
         }
     }
@@ -1306,7 +1306,7 @@ function updateSidebarBranding() {
     if (appState.appSettings.company_logo) {
         logoCircle.innerHTML = `<img src="${appState.appSettings.company_logo}" alt="Logo" class="logo-preview-img" style="border-radius:50%;width:100%;height:100%;object-fit:cover;">`;
     } else {
-        logoCircle.innerHTML = `<img src="./mk_logo.png" alt="Logo" class="logo-preview-img" style="border-radius:50%;width:100%;height:100%;object-fit:cover;">`;
+        logoCircle.innerHTML = `<img src="/mk_logo.png" alt="Logo" class="logo-preview-img" style="border-radius:50%;width:100%;height:100%;object-fit:cover;">`;
     }
 }
 
@@ -2445,7 +2445,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ...appState.qrSettings,
                         upi_id: 'vinaipriyan-2@okaxis',
                         qr_name: 'vinai priyan',
-                        qr_image: './default_qr.jpg'
+                        qr_image: '/default_qr.jpg'
                     };
                     await DBService.saveQRSettings(defaultPayload);
                     showToast(appState.language === 'ta' ? 'QR படம் துவக்க நிலைக்கு மாற்றப்பட்டது.' : 'QR image reset to default.', 'success');
