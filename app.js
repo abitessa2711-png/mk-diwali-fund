@@ -176,7 +176,7 @@ const i18n = {
         gift_modal_image: "பரிசுப் படம் (Upload Image)",
         gift_modal_cancel: "ரத்து செய்க",
         gift_modal_save: "சேமிக்க",
-        login_id_label: "மின்னஞ்சல் அல்லது கைபேசி எண் (Email / Contact) *",
+        login_id_label: "Email or Mobile Number *",
         login_id_placeholder: "மின்னஞ்சல் அல்லது கைபேசி எண்",
         qr_settings_title: "QR அமைப்புகள் (QR Settings)",
         settings_upi_id: "UPI ID",
