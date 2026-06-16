@@ -14,7 +14,7 @@ let appState = {
         qr_image: '/default_qr.jpg' 
     },
     appSettings: {
-        company_name: 'MK Diwali Fund',
+        company_name: 'KM Diwali Fund',
         company_address: 'Trichy, Tamil Nadu',
         company_mobile: '9514541504',
         company_logo: ''
@@ -49,7 +49,7 @@ const i18n = {
         logout: "வெளியேறு (Logout)",
         phase_badge: "Phase 1 (Admin Mode)",
         dash_welcome: "வரவேற்கிறோம், நிர்வாகி!",
-        dash_welcome_sub: "MK தீபாவளி ஃபண்ட் மேலாண்மை தளம் உங்களை அன்புடன் வரவேற்கிறது. இன்றைய நிலவரங்கள் கீழே தொகுக்கப்பட்டுள்ளன.",
+        dash_welcome_sub: "KM தீபாவளி ஃபண்ட் மேலாண்மை தளம் உங்களை அன்புடன் வரவேற்கிறது. இன்றைய நிலவரங்கள் கீழே தொகுக்கப்பட்டுள்ளன.",
         stat_members: "மொத்த உறுப்பினர்கள்",
         stat_collection: "மொத்த சேகரிப்பு",
         stat_pending: "நிலுவைத் தொகை",
@@ -67,7 +67,7 @@ const i18n = {
         reg_title: "புதிய உறுப்பினர் பதிவு படிவம்",
         reg_sub: "புதிய சிட் உறுப்பினரை சேர்க்க கீழே உள்ள விவரங்களை பூர்த்தி செய்யவும்.",
         reg_member_id: "உறுப்பினர் குறியீடு (Member ID)",
-        reg_id_placeholder: "MK-1001 (தானியங்கி)",
+        reg_id_placeholder: "KM-1001 (தானியங்கி)",
         reg_id_help: "சிஸ்டம் மூலம் தானியங்கி குறியீடு உருவாக்கப்படும்.",
         reg_name: "பெயர் (Name)",
         reg_name_placeholder: "பெயரை உள்ளிடவும்",
@@ -157,7 +157,7 @@ const i18n = {
         report_sig_creator: "தயாரித்தவர்",
         report_sig_manager: "மேலாளர் கையொப்பம்",
         contact_owner_title: "நிர்வாகி விவரங்கள் (Owner Details)",
-        contact_owner_sub: "MK தீபாவளி ஃபண்ட் உரிமையாளர் மற்றும் தொடர்பு விவரங்கள்.",
+        contact_owner_sub: "KM தீபாவளி ஃபண்ட் உரிமையாளர் மற்றும் தொடர்பு விவரங்கள்.",
         owner_name_lbl: "நிர்வாகி பெயர்:",
         owner_phone_lbl: "கைபேசி எண்:",
         owner_email_lbl: "மின்னஞ்சல்:",
@@ -202,7 +202,7 @@ const i18n = {
         logout: "Logout",
         phase_badge: "Phase 1 (Admin Mode)",
         dash_welcome: "Welcome, Admin!",
-        dash_welcome_sub: "MK Diwali Fund Management Platform welcomes you. Today's summary is compiled below.",
+        dash_welcome_sub: "KM Diwali Fund Management Platform welcomes you. Today's summary is compiled below.",
         stat_members: "Total Members",
         stat_collection: "Total Collection",
         stat_pending: "Pending Amount",
@@ -220,7 +220,7 @@ const i18n = {
         reg_title: "New Member Registration Form",
         reg_sub: "Fill in the details below to register a new member in the chit scheme.",
         reg_member_id: "Member ID Code",
-        reg_id_placeholder: "MK-1001 (Auto-generated)",
+        reg_id_placeholder: "KM-1001 (Auto-generated)",
         reg_id_help: "System will auto-generate serial ID on save.",
         reg_name: "Member Full Name",
         reg_name_placeholder: "Enter member's name",
@@ -311,7 +311,7 @@ const i18n = {
         report_sig_manager: "Manager Signature",
         set_db_title: "Supabase Settings (Developer Setup Wizard)", // Keep for Setup Wizard modal
         contact_owner_title: "Owner Details",
-        contact_owner_sub: "MK Diwali Fund Owner Profile & Contact Details.",
+        contact_owner_sub: "KM Diwali Fund Owner Profile & Contact Details.",
         owner_name_lbl: "Owner Name:",
         owner_phone_lbl: "Mobile No:",
         owner_email_lbl: "Email:",
@@ -471,8 +471,8 @@ const DBService = {
         if (appState.demoMode) {
             const saved = localStorage.getItem('demo_app_settings');
             if (saved) appState.appSettings = JSON.parse(saved);
-            if (appState.appSettings.company_name && (appState.appSettings.company_name.includes('KM') || appState.appSettings.company_name === 'KM Chit Fund')) {
-                appState.appSettings.company_name = 'MK Diwali Fund (Demo Mode)';
+            if (appState.appSettings.company_name && (appState.appSettings.company_name.includes('MK') || appState.appSettings.company_name === 'MK Diwali Fund' || appState.appSettings.company_name.includes('MK Diwali'))) {
+                appState.appSettings.company_name = 'KM Diwali Fund (Demo Mode)';
                 appState.appSettings.company_mobile = '9514541504';
                 appState.appSettings.company_address = 'Trichy, Tamil Nadu';
                 localStorage.setItem('demo_app_settings', JSON.stringify(appState.appSettings));
@@ -483,12 +483,12 @@ const DBService = {
         if (error) throw error;
         if (data && data.length > 0) {
             appState.appSettings = data[0];
-            if (appState.appSettings.company_name && (appState.appSettings.company_name.includes('KM') || appState.appSettings.company_name === 'KM Chit Fund')) {
-                appState.appSettings.company_name = 'MK Diwali Fund';
+            if (appState.appSettings.company_name && (appState.appSettings.company_name.includes('MK') || appState.appSettings.company_name === 'MK Diwali Fund' || appState.appSettings.company_name.includes('MK Diwali'))) {
+                appState.appSettings.company_name = 'KM Diwali Fund';
                 appState.appSettings.company_mobile = '9514541504';
                 appState.appSettings.company_address = 'Trichy, Tamil Nadu';
                 supabaseClient.from('app_settings').update({
-                    company_name: 'MK Diwali Fund',
+                    company_name: 'KM Diwali Fund',
                     company_mobile: '9514541504',
                     company_address: 'Trichy, Tamil Nadu'
                 }).eq('id', appState.appSettings.id).then(({error: upErr}) => {
@@ -497,7 +497,7 @@ const DBService = {
             }
         } else {
             const defaultBranding = {
-                company_name: 'MK Diwali Fund',
+                company_name: 'KM Diwali Fund',
                 company_address: 'Trichy, Tamil Nadu',
                 company_mobile: '9514541504',
                 company_logo: ''
@@ -603,9 +603,9 @@ const DBService = {
         let migrated = false;
         const membersList = data || [];
         for (const m of membersList) {
-            if (m.member_id && m.member_id.startsWith('KM-')) {
+            if (m.member_id && m.member_id.startsWith('MK-')) {
                 const oldId = m.member_id;
-                const newId = oldId.replace('KM-', 'MK-');
+                const newId = oldId.replace('MK-', 'KM-');
                 
                 // Avoid migration if newId already exists (to prevent foreign key/unique constraint duplicate mappings)
                 if (membersList.some(mem => mem.member_id === newId)) {
@@ -639,14 +639,14 @@ const DBService = {
 
     async getNextMemberId() {
         if (appState.members.length === 0) {
-            return 'MK-1001';
+            return 'KM-1001';
         }
         const ids = appState.members.map(m => {
-            const num = parseInt(m.member_id.replace('MK-', ''));
+            const num = parseInt(m.member_id.replace('KM-', ''));
             return isNaN(num) ? 1000 : num;
         });
         const maxId = Math.max(...ids);
-        return `MK-${maxId + 1}`;
+        return `KM-${maxId + 1}`;
     },
 
     async insertMember(member) {
@@ -966,23 +966,23 @@ const DBService = {
     loadDemoData() {
         if (!localStorage.getItem('demo_members')) {
             const defaultMembers = [
-                { id: 'm1', member_id: 'MK-1001', name: 'இராமு', contact_no: '9514541504', address: 'Trichy, Tamil Nadu', chit_amount: 50000, total_paid: 15000, pending_amount: 35000, interest_amount: 1000, created_at: new Date().toISOString() },
-                { id: 'm2', member_id: 'MK-1002', name: 'சோமு', contact_no: '9876543211', address: 'காஞ்சிபுரம்', chit_amount: 100000, total_paid: 60000, pending_amount: 40000, interest_amount: 2500, created_at: new Date().toISOString() },
-                { id: 'm3', member_id: 'MK-1003', name: 'கண்ணன்', contact_no: '9876543212', address: 'செங்கல்பட்டு', chit_amount: 30000, total_paid: 10000, pending_amount: 20000, interest_amount: 500, created_at: new Date().toISOString() },
-                { id: 'm4', member_id: 'MK-1004', name: 'பாலு', contact_no: '9876543213', address: 'திருவள்ளூர்', chit_amount: 50000, total_paid: 50000, pending_amount: 0, interest_amount: 0, created_at: new Date().toISOString() }
+                { id: 'm1', member_id: 'KM-1001', name: 'இராமு', contact_no: '9514541504', address: 'Trichy, Tamil Nadu', chit_amount: 50000, total_paid: 15000, pending_amount: 35000, interest_amount: 1000, created_at: new Date().toISOString() },
+                { id: 'm2', member_id: 'KM-1002', name: 'சோமு', contact_no: '9876543211', address: 'காஞ்சிபுரம்', chit_amount: 100000, total_paid: 60000, pending_amount: 40000, interest_amount: 2500, created_at: new Date().toISOString() },
+                { id: 'm3', member_id: 'KM-1003', name: 'கண்ணன்', contact_no: '9876543212', address: 'செங்கல்பட்டு', chit_amount: 30000, total_paid: 10000, pending_amount: 20000, interest_amount: 500, created_at: new Date().toISOString() },
+                { id: 'm4', member_id: 'KM-1004', name: 'பாலு', contact_no: '9876543213', address: 'திருவள்ளூர்', chit_amount: 50000, total_paid: 50000, pending_amount: 0, interest_amount: 0, created_at: new Date().toISOString() }
             ];
             localStorage.setItem('demo_members', JSON.stringify(defaultMembers));
         }
         
         if (!localStorage.getItem('demo_payments')) {
             const defaultPayments = [
-                { id: 'p1', member_id: 'MK-1001', amount_paid: 5000, payment_mode: 'Cash', payment_date: '2026-06-10', created_at: new Date().toISOString() },
-                { id: 'p2', member_id: 'MK-1001', amount_paid: 10000, payment_mode: 'QR Payment', payment_date: '2026-06-14', created_at: new Date().toISOString() },
-                { id: 'p3', member_id: 'MK-1002', amount_paid: 30000, payment_mode: 'Cash', payment_date: '2026-06-05', created_at: new Date().toISOString() },
-                { id: 'p4', member_id: 'MK-1002', amount_paid: 30000, payment_mode: 'QR Payment', payment_date: '2026-06-12', created_at: new Date().toISOString() },
-                { id: 'p5', member_id: 'MK-1003', amount_paid: 10000, payment_mode: 'QR Payment', payment_date: '2026-06-11', created_at: new Date().toISOString() },
-                { id: 'p6', member_id: 'MK-1004', amount_paid: 20000, payment_mode: 'Cash', payment_date: '2026-06-01', created_at: new Date().toISOString() },
-                { id: 'p7', member_id: 'MK-1004', amount_paid: 30000, payment_mode: 'QR Payment', payment_date: '2026-06-08', created_at: new Date().toISOString() }
+                { id: 'p1', member_id: 'KM-1001', amount_paid: 5000, payment_mode: 'Cash', payment_date: '2026-06-10', created_at: new Date().toISOString() },
+                { id: 'p2', member_id: 'KM-1001', amount_paid: 10000, payment_mode: 'QR Payment', payment_date: '2026-06-14', created_at: new Date().toISOString() },
+                { id: 'p3', member_id: 'KM-1002', amount_paid: 30000, payment_mode: 'Cash', payment_date: '2026-06-05', created_at: new Date().toISOString() },
+                { id: 'p4', member_id: 'KM-1002', amount_paid: 30000, payment_mode: 'QR Payment', payment_date: '2026-06-12', created_at: new Date().toISOString() },
+                { id: 'p5', member_id: 'KM-1003', amount_paid: 10000, payment_mode: 'QR Payment', payment_date: '2026-06-11', created_at: new Date().toISOString() },
+                { id: 'p6', member_id: 'KM-1004', amount_paid: 20000, payment_mode: 'Cash', payment_date: '2026-06-01', created_at: new Date().toISOString() },
+                { id: 'p7', member_id: 'KM-1004', amount_paid: 30000, payment_mode: 'QR Payment', payment_date: '2026-06-08', created_at: new Date().toISOString() }
             ];
             localStorage.setItem('demo_payments', JSON.stringify(defaultPayments));
         }
@@ -1007,13 +1007,13 @@ const DBService = {
         
         const savedApp = localStorage.getItem('demo_app_settings');
         appState.appSettings = savedApp ? JSON.parse(savedApp) : {
-            company_name: 'MK Diwali Fund (Demo Mode)',
+            company_name: 'KM Diwali Fund (Demo Mode)',
             company_address: 'Trichy, Tamil Nadu',
             company_mobile: '9514541504',
             company_logo: ''
         };
-        if (appState.appSettings.company_name && (appState.appSettings.company_name.includes('KM') || appState.appSettings.company_name === 'KM Chit Fund')) {
-            appState.appSettings.company_name = 'MK Diwali Fund (Demo Mode)';
+        if (appState.appSettings.company_name && (appState.appSettings.company_name.includes('MK') || appState.appSettings.company_name === 'MK Diwali Fund' || appState.appSettings.company_name.includes('MK Diwali'))) {
+            appState.appSettings.company_name = 'KM Diwali Fund (Demo Mode)';
             appState.appSettings.company_mobile = '9514541504';
             appState.appSettings.company_address = 'Trichy, Tamil Nadu';
             localStorage.setItem('demo_app_settings', JSON.stringify(appState.appSettings));
@@ -1168,7 +1168,7 @@ function applyLanguage() {
         }
     };
     
-    const title = titleMap[lang][appState.currentView] || 'MK Diwali Fund';
+    const title = titleMap[lang][appState.currentView] || 'KM Diwali Fund';
     document.getElementById('current-page-title').textContent = title;
     
     enforceRolePermissions();
@@ -1249,8 +1249,8 @@ function enforceRolePermissions() {
         }
         if (welcomeSub) {
             welcomeSub.textContent = appState.language === 'ta'
-                ? 'MK தீபாவளி ஃபண்ட் மேலாண்மை தளம் உங்களை அன்புடன் வரவேற்கிறது. இன்றைய நிலவரங்கள் கீழே தொகுக்கப்பட்டுள்ளன.'
-                : 'MK Diwali Fund Management Platform welcomes you. Today\'s summary is compiled below.';
+                ? 'KM தீபாவளி ஃபண்ட் மேலாண்மை தளம் உங்களை அன்புடன் வரவேற்கிறது. இன்றைய நிலவரங்கள் கீழே தொகுக்கப்பட்டுள்ளன.'
+                : 'KM Diwali Fund Management Platform welcomes you. Today\'s summary is compiled below.';
         }
         
         // Show Admin QR settings editor, hide simulation card
